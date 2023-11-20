@@ -27,7 +27,7 @@
         <?php
 
         ?>
-        <input type="text" placeholder="stadt suchen" name="search" value="<?php echo e($searchValue ?? ''); ?>">
+        <input type="text" placeholder="stadt suchen" minlength="3" name="search" value="<?php echo e($searchValue ?? ''); ?>">
         <input type="submit" value="suchen">
     </form>
 

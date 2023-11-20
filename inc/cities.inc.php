@@ -20,3 +20,24 @@ function get_cities_starts_with(string $char): ?array
     return $results;
 }
 // get_cities_starts_with('%');
+
+// suchlogik
+function get_cities_by_search(string $search): ?array
+{
+    global $pdo;
+   $search = preg_replace("/[^A-Za-z0-9\.öäüßÖÄÜ,]/", '', $search);
+  
+
+    if(mb_strlen($search)<= 2){
+        return null;
+    }
+
+    $stmt = $pdo->prepare("SELECT * FROM `cities` WHERE `title` LIKE :title ORDER BY `title` ASC, `zip` ASC");
+
+    $stmt->bindValue(':title', "{$search}%");
+
+    $stmt->execute();
+    $cities = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $cities;
+}
